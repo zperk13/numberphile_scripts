@@ -20,5 +20,7 @@ def main(sensitivity):
 
 
 if __name__ == '__main__':
+    # Sensitivity must be at least 0.00001 and at most 0.003
+    # Those aren't the exact numbers but you need more decimal places and this is accurate enough
     for t in main(0.0025):
         print(t)
