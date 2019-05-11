@@ -1,8 +1,8 @@
 # https://youtu.be/Wim9WJeDTHQ
 def multiplication_persistence(x, print_steps=False):
-    def multiply_digits(x):
+    def multiply_digits(y):
         result = 1
-        for digit in str(x):
+        for digit in str(y):
             digit = int(digit)
             result *= digit
         return result
@@ -22,20 +22,20 @@ def multiplication_persistence(x, print_steps=False):
         return steps
 
 
-def find_multiplication_persistence(max, print_if_equal=False, start_num=1):
+def find_multiplication_persistence(max_num, print_if_equal=False, start_num=1):
     num = start_num
     best = 1
     # I know the repeating of code is ugly,
     # I'm just speeding it up by making it not do an unnecessary if statement every number
     if print_if_equal:
-        while num < max:
+        while num < max_num:
             result = multiplication_persistence(num)
             if result >= best:
                 print(f'Number found: {num:,} with {result} steps')
                 best = result
             num += 1
     else:
-        while num < max:
+        while num < max_num:
             result = multiplication_persistence(num)
             if result > best:
                 print(f'Number found: {num:,} with {result} steps')
