@@ -26,7 +26,7 @@ def find_multiplication_persistence(max, print_if_equal=False, start_num=1):
     num = start_num
     best = 1
     # I know the repeating of code is ugly,
-    # I'm just speeding it up so it doesn't do an unnecessary if statement every number
+    # I'm just speeding it up by making it not do an unnecessary if statement every number
     if print_if_equal:
         while num < max:
             result = multiplication_persistence(num)
