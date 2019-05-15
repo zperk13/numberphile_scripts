@@ -3,12 +3,7 @@ def difference(num1, num2):
 
 
 def get_ant_numbers(antenna1, antenna2, head, thorax, abdomen):
-    numbers = []
-    numbers.append(difference(antenna1, head))
-    numbers.append(difference(antenna2, head))
-    numbers.append(difference(head, thorax))
-    numbers.append(difference(thorax, abdomen))
-    return numbers
+    return [difference(antenna1, head), difference(antenna2, head), difference(head, thorax), difference(thorax, abdomen)]
 
 
 if __name__ == '__main__':
