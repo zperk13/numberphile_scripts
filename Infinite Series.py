@@ -18,7 +18,7 @@ def tortoise():
 def infinity_2(stopping_point, print_num=False, track_time=False):
     if track_time:
         start_time = time.time()
-    # Even though I'm copying my code and it doens't look good,
+    # Even though I'm copying my code and it doesn't look good,
     # it's faster because I'm not checking if print_num is True every single step
     num = 1
     denominator = 2
@@ -50,7 +50,7 @@ def infinity_3(max_num):
 
 if __name__ == '__main__':
     tortoise()
-    print('\n\n\n...starting calculation for infinte series 2, wait for it to calculate...')
+    print('\n\n\n...starting calculation for infinite series 2, wait for it to calculate...')
     infinity_2(20, track_time=True)
     print('\n\ninfinity series 3 now\n')
     infinity_3(1_000_000)
