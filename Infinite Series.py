@@ -35,7 +35,7 @@ def infinity_2(stopping_point, print_num=False, track_time=False):
     steps = denominator - 2
     print(f'{num} reached in {steps:,} steps. The denominator was {denominator - 1:,}', end="")
     if track_time:
-        print(f' and took {end_time - start_time} to complete')
+        print(f' and took {end_time - start_time} seconds to complete')
 
 
 def infinity_3(max_num):
