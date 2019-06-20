@@ -1,6 +1,9 @@
 # https://youtu.be/zk_Q9y_LNzg
 
 from math import ceil
+from time import time
+
+max_num = 1_000
 
 
 def is_even(integer):
@@ -29,15 +32,16 @@ def is_prime(number):
         return True
 
 
-max_num = 1_000_000
+start = time()
+print('Generating Primes')
+primes = [2] + [x for x in range(1, max_num + 1, 2) if is_prime(x)]
+print('Done in', time() - start, 'seconds\n')
 
-primes = [x for x in range(1, max_num + 1, 2) if is_prime(x)]
 
 def gen_belphegors_numbers(min):
     for n in range(min, max_num + 1):
         zeroes = '0' * n
         yield [int('1' + zeroes + '666' + zeroes + '1'), n]
-
 
 
 def gen_belphegors_primes(min):  # SLOW
@@ -50,42 +54,65 @@ def sum_digits(num):
     return sum([int(x) for x in str(num)])
 
 
-def prime_index():
+def gen_prime_index():
     for index, prime in enumerate(primes):
+        index += 1
         index_sum = sum_digits(index)
         prime_sum = sum_digits(prime)
         if index_sum == prime_sum:
             yield [prime, index, index_sum]
 
 
-def republican_prime():
-    def right_side(num):
-        string = str(num)
-        length = len(string)
-        return int(string[ceil(length / 2):])
+def is_prime_index(num):
+    if num not in primes:
+        return False
+    if sum_digits(num) == sum_digits(primes.index(num) + 1):
+        return True
+    return False
 
+
+def right_side(num):
+    string = str(num)
+    length = len(string)
+    return int(string[ceil(length / 2):])
+
+
+def is_republican_prime(num):
+    return right_side(num) in primes
+
+
+def gen_republican_prime():
     for x in range(11, max_num + 1):
         right = right_side(x)
         if right in primes:
             yield [x, right]
 
 
-def naughty_prime():
-    for x in range(1, max_num + 1, 2):
-        if x in primes:
-            zero_count = 0
-            other_count = 0
-            for digit in str(x):
-                if digit == '0':
-                    zero_count += 1
-                else:
-                    other_count += 1
-            if zero_count > other_count:
-                yield x
+def is_naughty_prime(num):
+    if num not in primes:
+        return False
+    zero_count = 0
+    other_count = 0
+    for digit in str(num):
+        if digit == '0':
+            zero_count += 1
+        else:
+            other_count += 1
+    return zero_count > other_count
 
 
-def beastly_primes():
+def gen_naughty_prime():
     for x in range(1, max_num + 1, 2):
-        if '666' in str(x):
-            if x in primes:
-                yield x
+        if is_naughty_prime(x):
+            yield x
+
+
+def is_beastly_prime(num):
+    if '666' in str(num):
+        return num in primes
+
+
+def gen_beastly_primes():
+    for x in range(1, max_num + 1, 2):
+        if is_beastly_prime(x):
+            yield x
