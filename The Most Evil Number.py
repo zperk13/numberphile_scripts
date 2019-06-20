@@ -3,12 +3,6 @@
 from math import ceil
 
 
-def gen_belphegors_numbers(min, max):
-    for n in range(min, max + 1):
-        zeroes = '0' * n
-        yield [int('1' + zeroes + '666' + zeroes + '1'), n]
-
-
 def is_even(integer):
     # Returns True if integer given is even, else it will return False
     return integer % 2 == 0
@@ -35,9 +29,20 @@ def is_prime(number):
         return True
 
 
-def gen_belphegors_primes(min, max):  # SLOW
-    for num, n in gen_belphegors_numbers(min, max):
-        if is_prime(num):
+max_num = 1_000_000
+
+primes = [x for x in range(1, max_num + 1, 2) if is_prime(x)]
+
+def gen_belphegors_numbers(min):
+    for n in range(min, max_num + 1):
+        zeroes = '0' * n
+        yield [int('1' + zeroes + '666' + zeroes + '1'), n]
+
+
+
+def gen_belphegors_primes(min):  # SLOW
+    for num, n in gen_belphegors_numbers(min):
+        if num in primes:
             yield [num, n]
 
 
@@ -45,8 +50,7 @@ def sum_digits(num):
     return sum([int(x) for x in str(num)])
 
 
-def prime_index(max):
-    primes = [x for x in range(1, max + 1, 2) if is_prime(x)]
+def prime_index():
     for index, prime in enumerate(primes):
         index_sum = sum_digits(index)
         prime_sum = sum_digits(prime)
@@ -54,21 +58,21 @@ def prime_index(max):
             yield [prime, index, index_sum]
 
 
-def republican_prime(max):
+def republican_prime():
     def right_side(num):
         string = str(num)
         length = len(string)
         return int(string[ceil(length / 2):])
 
-    for x in range(11, max + 1):
+    for x in range(11, max_num + 1):
         right = right_side(x)
-        if is_prime(right):
+        if right in primes:
             yield [x, right]
 
 
-def naughty_prime(max):
-    for x in range(1, max + 1, 2):
-        if is_prime(x):
+def naughty_prime():
+    for x in range(1, max_num + 1, 2):
+        if x in primes:
             zero_count = 0
             other_count = 0
             for digit in str(x):
@@ -80,8 +84,8 @@ def naughty_prime(max):
                 yield x
 
 
-def beastly_primes(max):
-    for x in range(1, max + 1, 2):
+def beastly_primes():
+    for x in range(1, max_num + 1, 2):
         if '666' in str(x):
-            if is_prime(x):
+            if x in primes:
                 yield x
