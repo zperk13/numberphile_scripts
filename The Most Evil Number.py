@@ -3,7 +3,7 @@
 from math import ceil
 from time import time
 
-max_num = 1_000
+max_num = 100_000_000
 
 
 def is_even(integer):
@@ -31,11 +31,23 @@ def is_prime(number):
                 return False
         return True
 
+def gen_prime_list(max):
+    if max <= 2:
+        return []
+    sieve = [x for x in range(3, max+1, 2)]
+    top = len(sieve)
+    for si in sieve:
+        if si:
+            bottom = (si * si - 3) // 2
+            if bottom >= top:
+                break
+            sieve[bottom::si] = [0] * -((bottom - top) // si)
+    return [2] + [el for el in sieve if el]
 
 start = time()
 print('Generating Primes')
-primes = [2] + [x for x in range(1, max_num + 1, 2) if is_prime(x)]
-print('Done in', time() - start, 'seconds\n')
+primes = gen_prime_list(max_num)
+print('Generated', len(primes), 'primes in', time() - start, 'seconds\n')
 
 
 def gen_belphegors_numbers(min):
