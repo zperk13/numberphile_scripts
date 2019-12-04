@@ -36,6 +36,6 @@ for prime in generate_primes(65532):
     squared = prime ** 2
     one_less = squared - 1
     print(f'''{prime}^2={squared}
-{prime}-1={one_less}
+{squared}-1={one_less}
 {one_less}/24={one_less / 24}''')
     print('\n\n')
